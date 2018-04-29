@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--
+    Carlos Rafael Soto (CSotoX)
+    Odoo.soporte@gmail.com
+    Odoo v11
+
+    - CRE 28/ABR/2018 (CSOTOX)
+
+-->
+
+    <!--
+        Aquí se muestra la vista en pantalla
+    -->
+    <record id="listado_cxp_view" model="ir.ui.view">
+        <field name="name">listado.cxp.view</field>
+        <field name="model">account.invoice</field>
+        <field name="type">tree</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="commercial_partner_id" string="Proveedor"/>
+                <field name="reference" string="Doc. Proveedor"/>
+                <field name="date_invoice" string="Fecha Doc."/>
+                <field name="date_due" string="Fecha Vencimiento"/>
+                <field name="payment_term_id" string="Plazo a pagar"/>
+                <field name="amount_total" string="Total"/>
+                <field name="residual" string="A pagar"/>
+                <field name="number" string="Doc. Interno"/>
+                <field name="type" string="Tipo"/>
+                <field name="state" string="Estado"/>
+                <field name="sent" string="Enviado"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 
+
+<field name="x_dias_vencido" string="Días vencido"/>
+
+        Cuando doy clic en el Menu
+        Aplico los filtros de manera automatica para:
+            - Muestro solamente productos almacenables
+            - Que tengan regla de abastecimiento
+            - Que el Stock a Mano sea menor al Stock Mínimo
+
+    -->
+    <record id="listado_cxp_action" model="ir.actions.act_window">
+        <field name="name">Listado de Facturas a Pagar</field>
+        <field name="view_id" ref="listado_cxp_view"/>
+        <field name="res_model">account.invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" eval="[('type','=', 'open')]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            No hay facturas pendientes de pago.
+            </p><p>
+            Todas las facturas aparecen como pagas.
+
+            </p>
+        </field>
+    </record>
+
+    <!--
+        Definimos el Sub-Menu
+        Ruta: Aplicación Contabilidad -> Informes -> Listado CXP
+    -->
+    <menuitem id="listado_cxp_menu"
+        action="listado_cxp_action" 
+        name="Listado CXP"
+        parent="account.account_reports_management_menu" 
+        sequence="200" />
+        <!-- 
+        groups="stock.group_stock_user"/>
+        -->
+</odoo>
