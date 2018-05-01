@@ -8,7 +8,7 @@
 
 {
     'name': 'Account_Listado_CxP',
-    'version': '11.0.0 - Beta',
+    'version': '11.1.0 - Beta',
     'category': 'Account',
     'sequence': 10,
     'author' : 'Carlos Rafael Soto (CSOTOX)',
@@ -22,7 +22,6 @@
         ],
     'data': [
         'views/listado_cxp.xml',
-
         ],
     'installable': True,
     'application': False,
